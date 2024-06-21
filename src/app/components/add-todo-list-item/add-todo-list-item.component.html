@@ -1,0 +1,47 @@
+<div class="w-auto">
+    <div class="m-0 px-6 py-2 bg-blue-300 flex justify-between items-center">
+      <h2 style="margin: 0px">Add Items</h2>
+      <mat-icon matDialogClose matTooltip="Close" class="cursor-pointer"
+        >close</mat-icon
+      >
+    </div>
+  
+    <div class="mt-3 ml-5 mr-5">
+      <input
+        type="text"
+        class="px-3 mb-2 h-8 w-full focus:outline-none rounded-xl border-2 border-gray-300"
+        placeholder="Press Enter to Add Multiple Item's"
+        (keyup.enter)="addItemInArray()"
+        [(ngModel)]="itemValue"
+      />
+  
+      <mat-chip-grid #chipGrid aria-label="Enter fruits">
+        <mat-chip-row
+          *ngFor="let fruit of itemList$$ | async; let idx = index"
+          (removed)="remove(idx)"
+        >
+          {{ fruit }}
+          <button matChipRemove [attr.aria-label]="'remove ' + fruit">
+            <mat-icon class="hover:text-red-700">cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+      </mat-chip-grid>
+    </div>
+  
+    <!-- Submitting Button -->
+    <mat-dialog-actions align="center" class="gap-2">
+      <button
+        class="p-2 px-4 text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-100"
+        style="border-radius: 10px"
+        (click)="saveList()"
+      >
+        <ng-container *ngIf="!(submitting$$ | async)">Save</ng-container>
+        <mat-spinner
+          *ngIf="submitting$$ | async"
+          [diameter]="22"
+          class="m-1"
+        ></mat-spinner>
+      </button>
+    </mat-dialog-actions>
+  </div>
+  

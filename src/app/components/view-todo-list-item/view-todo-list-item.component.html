@@ -83,7 +83,7 @@
       <ng-container matColumnDef="sno">
         <th mat-header-cell *matHeaderCellDef class="sticky top-0">S.No.</th>
         <td mat-cell *matCellDef="let element; let idx = index">
-          {{ idx + 1 | dashIfNothing }}
+          {{ this.pageIndex * 10 + idx + 1 | dashIfNothing }}
         </td>
       </ng-container>
 

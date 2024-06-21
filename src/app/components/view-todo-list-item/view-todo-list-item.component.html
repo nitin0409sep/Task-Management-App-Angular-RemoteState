@@ -69,11 +69,14 @@
 
   <div class="w-full shadow-lg border-gray-300 border-t-2 rounded-t-md">
     <div
-      *ngIf="newDataSource && (loading$$ | async) === false; else loader"
+      *ngIf="
+        (dataSource$$ | async) && (loading$$ | async) === false;
+        else loader
+      "
     ></div>
     <table
       mat-table
-      [dataSource]="newDataSource"
+      [dataSource]="dataSource$$ | async"
       class="w-full overflow-x-auto"
       style="max-height: 620px"
     >
@@ -160,12 +163,19 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
     <div
-      *ngIf="(dataSource | async)?.length === 0"
+      *ngIf="(dataSource$$ | async)?.length === 0"
       class="w-full text-center p-2 text-lg text-gray-700"
     >
       No Items Found
     </div>
-    <mat-paginator #paginator pageSize="10" showFirstLastButtons>
+    <mat-paginator
+      (page)="pageEvents($event)"
+      [length]="totalItems"
+      [pageSize]="this.limit"
+      [pageIndex]="this.pageIndex"
+      [showFirstLastButtons]="true"
+      [hidePageSize]="true"
+      >>
     </mat-paginator>
   </div>
 </div>

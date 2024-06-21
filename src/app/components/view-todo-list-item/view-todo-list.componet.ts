@@ -6,8 +6,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Params, Router } from '@angular/router';
 import { ConfirmationDialogComponent } from 'src/app/utils/shared-componets/confirmation-dialog/confirmation-dialog.component';
 import { SnackBarService } from 'src/app/utils/shared-service/snackbar.service';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { PageEvent } from '@angular/material/paginator';
 import { AddTodoListComponent } from '../add-todo-list-item/add-todo-list-item.component';
 import { EditTodoListComponent } from '../edit-todo-list-item/edit-todo-list-item.component';
 import { Todo } from 'src/app/models/tododata.interface';
@@ -20,8 +19,6 @@ import { Todo } from 'src/app/models/tododata.interface';
 export class ViewTodoListItemComponent implements OnInit {
   title = 'todo-angular';
 
-  @ViewChild(MatPaginator) public paginator!: MatPaginator;
-
   public searchForm!: FormGroup;
 
   public displayedColumns = [
@@ -33,12 +30,14 @@ export class ViewTodoListItemComponent implements OnInit {
     'priority',
     'action',
   ];
-  public dataSource = new BehaviorSubject<any>([]);
-  public newDataSource = new MatTableDataSource(this.dataSource.value);
+  public dataSource$$ = new BehaviorSubject<any>([]);
   public search = new FormControl('', []);
   public loading$$ = new BehaviorSubject<boolean>(false);
   public totalItems = 0;
   public deletingIndex = -1;
+
+  public pageIndex: number = 0;
+  public limit: number = 10;
 
   public constructor(
     private dialog: MatDialog,
@@ -94,11 +93,8 @@ export class ViewTodoListItemComponent implements OnInit {
     this.todoservice.getData().subscribe({
       next: (data) => {
         this.totalItems = +data.count ?? 0;
-        this.dataSource.next(data.items);
-        this.newDataSource.data = this.dataSource.value;
-        this.newDataSource.paginator = this.paginator;
+        this.dataSource$$.next(data.items);
 
-        this.newDataSource.paginator.length = this.totalItems;
         this.loading$$.next(false);
       },
       error: (err) => {
@@ -150,24 +146,15 @@ export class ViewTodoListItemComponent implements OnInit {
       limit: limit ?? 10,
     };
 
-    console.log(params);
-
     this.router.navigate([], {
       queryParams: params,
     });
-
-    // params['search'] === ''
-    //   ? null
-    //   : this.router.navigate([], {
-    //       queryParams: params,
-    //     });
   }
 
   // // Page Events
-  // public pageEvents(event: PageEvent) {
-  //   event.length = this.totalItems;
-  //   const limit = event.pageSize;
-  //   const pageIndex = event.pageIndex;
-  //   this.updateQueryParams({ limit, page: pageIndex });
-  // }
+  public pageEvents(event: PageEvent) {
+    this.limit = event.pageSize;
+    this.pageIndex = event.pageIndex;
+    this.updateQueryParams({ search: null }, +this.pageIndex, +this.limit);
+  }
 }

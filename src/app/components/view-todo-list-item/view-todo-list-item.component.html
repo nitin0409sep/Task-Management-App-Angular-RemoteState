@@ -1,19 +1,5 @@
-<div class="px-4 py-4">
-  <div class="flex justify-between items-center">
-    <div class="text-lg text-blue-400">Welcome, Nitin</div>
-    <div class="text-xl text-purple-400 font-medium">Todo Item's List</div>
-    <button
-      style="border-radius: 100%"
-      matTooltip="logout"
-      class="text-red-500 hover:text-red-600 active:text-red-700 focus:outline-none"
-    >
-      <span class="material-icons">logout</span>
-    </button>
-  </div>
-
-  <hr class="mt-2" />
-
-  <div class="flex gap-5 py-4 justify-between">
+<div class="px-4">
+  <div class="flex gap-5 py-4 justify-between flex-wrap">
     <form [formGroup]="searchForm">
       <div
         class="flex items-center border-gray-400 rounded-full justify-between"
@@ -58,13 +44,29 @@
       </div>
     </form>
 
-    <button
-      class="p-2 px-10 text-md text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-100"
-      style="border-radius: 10px"
-      (click)="$event.stopPropagation(); addItems()"
-    >
-      Add Items
-    </button>
+    <div class="flex gap-4">
+      <button
+        class="p-2 px-10 text-md text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-100"
+        style="border-radius: 10px"
+        (click)="$event.stopPropagation(); addItems()"
+      >
+        Add Items
+      </button>
+
+      <button
+        class="p-2 px-10 text-md"
+        style="border-radius: 10px"
+        [ngClass]="
+          this.dataSource$$.value.length !== 0
+            ? 'text-white bg-red-500 hover:bg-red-600 active:bg-red-700 focus:outline-none focus:ring focus:ring-red-100'
+            : 'bg-slate-200 text-gray-500'
+        "
+        (click)="$event.stopPropagation(); deleteAllItems()"
+        [disabled]="this.dataSource$$.value.length === 0"
+      >
+        Delete All Items
+      </button>
+    </div>
   </div>
 
   <div class="w-full shadow-lg border-gray-300 border-t-2 rounded-t-md">
@@ -78,7 +80,6 @@
       mat-table
       [dataSource]="dataSource$$ | async"
       class="w-full overflow-x-auto"
-      style="max-height: 620px"
     >
       <ng-container matColumnDef="sno">
         <th mat-header-cell *matHeaderCellDef class="sticky top-0">S.No.</th>

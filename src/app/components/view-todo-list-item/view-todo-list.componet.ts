@@ -121,11 +121,32 @@ export class ViewTodoListItemComponent implements OnInit {
   }
 
   // Delete Items
-  public deleteItem(element: Todo) {
+  public deleteItem(element?: Todo) {
     const dialog = this.dialog.open(ConfirmationDialogComponent);
     dialog.afterClosed().subscribe((val) => {
       if (val) {
-        this.todoservice.delteItems(element.id).subscribe({
+        if (!element?.id) {
+          console.log('Delete All Is clicked');
+        } else {
+          this.todoservice.deleteItems(element!.id).subscribe({
+            next: (res) => {
+              this.snackbarservice.showMessage(res);
+            },
+            error: (err) => {
+              this.snackbarservice.showError(err.err.err);
+            },
+          });
+        }
+      }
+    });
+  }
+
+  // Delete Items
+  public deleteAllItems() {
+    const dialog = this.dialog.open(ConfirmationDialogComponent);
+    dialog.afterClosed().subscribe((val) => {
+      if (val) {
+        this.todoservice.deleteAllItems().subscribe({
           next: (res) => {
             this.snackbarservice.showMessage(res);
           },

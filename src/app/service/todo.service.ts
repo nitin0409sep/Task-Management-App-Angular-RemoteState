@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
   providedIn: 'root',
 })
 export class TodoService {
-  private apiUrl = 'http://localhost:80/api/data';
+  private apiUrl = 'http://localhost:80/api/data/todo';
 
   public refreshList$$ = new BehaviorSubject<boolean>(false);
   public loading$$ = new BehaviorSubject<boolean>(false);
@@ -89,8 +89,19 @@ export class TodoService {
   }
 
   // Delete Items
-  public delteItems(id: number): Observable<any> {
+  public deleteItems(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/deleteItem/${id}`).pipe(
+      map((res) => {
+        return res.message;
+      }),
+      tap(() => {
+        this.refreshList$$.next(true);
+      })
+    ) as Observable<any>;
+  }
+
+  public deleteAllItems(): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/deleteAllItems`).pipe(
       map((res) => {
         return res.message;
       }),

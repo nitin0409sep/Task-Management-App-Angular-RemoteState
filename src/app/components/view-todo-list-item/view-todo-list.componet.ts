@@ -9,7 +9,7 @@ import { SnackBarService } from 'src/app/utils/shared-service/snackbar.service';
 import { PageEvent } from '@angular/material/paginator';
 import { AddTodoListComponent } from '../add-todo-list-item/add-todo-list-item.component';
 import { EditTodoListComponent } from '../edit-todo-list-item/edit-todo-list-item.component';
-import { Todo } from 'src/app/models/tododata.interface';
+import { Todo } from 'src/app/modals/tododata.interface';
 
 @Component({
   selector: 'view-todo-list-item',

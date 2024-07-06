@@ -5,11 +5,11 @@ import { AuthService } from "src/app/service/auth.service";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-    private constructor(
+        constructor(
         private authService:AuthService,
     ){}
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<unknown>> {
         return this.authService.isLoggedIn$.pipe(
             take(1),
             switchMap(() => {
@@ -17,7 +17,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 // Setting Header/Token in Every Req
                 req = req.clone({
                     setHeaders: {
-                        Authorization: `${token}`,
+                        Authorization: `Bearer ${token}`,
                     },
                 });
                 return next.handle(req);

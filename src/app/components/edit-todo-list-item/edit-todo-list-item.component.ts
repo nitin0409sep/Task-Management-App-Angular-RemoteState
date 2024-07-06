@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BehaviorSubject } from 'rxjs';
-import { Todo } from 'src/app/models/tododata.interface';
+import { Todo } from 'src/app/modals/tododata.interface';
 import { TodoService } from 'src/app/service/todo.service';
 import { SnackBarService } from 'src/app/utils/shared-service/snackbar.service';
 

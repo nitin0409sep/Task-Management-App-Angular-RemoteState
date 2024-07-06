@@ -68,11 +68,13 @@ export class ViewTodoListItemComponent implements OnInit {
       .get('search')
       ?.valueChanges.pipe(debounceTime(300))
       .subscribe((val) => {
-        this.searchForm.get('filter')?.value === 'Item Id'
-          ? this.updateQueryParams({ search: null, id: val })
-          : val.search.length
-          ? this.updateQueryParams({ search: val.trim(), id: null })
-          : this.updateQueryParams({ search: null, id: null });
+        if (this.dataSource$$.value.length) {
+          this.searchForm.get('filter')?.value === 'Item Id'
+            ? this.updateQueryParams({ search: null, id: val })
+            : val.search.length
+            ? this.updateQueryParams({ search: val.trim(), id: null })
+            : this.updateQueryParams({ search: null, id: null });
+        }
       });
 
     // on hard refresh or initallay it should be null
@@ -141,7 +143,7 @@ export class ViewTodoListItemComponent implements OnInit {
     });
   }
 
-  // Delete Items
+  // Delete All Items
   public deleteAllItems() {
     const dialog = this.dialog.open(ConfirmationDialogComponent);
     dialog.afterClosed().subscribe((val) => {
@@ -172,7 +174,7 @@ export class ViewTodoListItemComponent implements OnInit {
     });
   }
 
-  // // Page Events
+  // Page Events
   public pageEvents(event: PageEvent) {
     this.limit = event.pageSize;
     this.pageIndex = event.pageIndex;

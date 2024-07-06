@@ -25,9 +25,9 @@ export class ViewTodoListItemComponent implements OnInit {
     'sno',
     'id',
     'value',
-    'status',
-    'progress',
-    'priority',
+    // 'status',
+    // 'progress',
+    // 'priority',
     'action',
   ];
   public dataSource$$ = new BehaviorSubject<any>([]);

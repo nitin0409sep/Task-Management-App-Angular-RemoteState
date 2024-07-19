@@ -31,7 +31,8 @@
 
       <!-- Login Button -->
       <div class="flex flex-col lg:flex-row justify-between gap-2 w-full">
-        <button type="submit" mat-flat-button class="bg-white flex-1">
+        <button type="submit" mat-flat-button class="bg-white flex-1"
+          [disabled]="(loading$$ | async) || !loginForm.valid">
           <span *ngIf="(loading$$ | async) === false">Login</span>
           <div *ngIf="loading$$ | async">
             <mat-spinner color="accent" [diameter]="22"></mat-spinner>

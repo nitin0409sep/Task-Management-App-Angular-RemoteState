@@ -16,12 +16,20 @@
             ;
         }
     }
+
+    button {
+        padding: 25px 0px;
+    }
 }
 
 ::ng-deep .mat-mdc-text-field-wrapper {
     border-radius: 7px !important;
 }
 
-::ng-deep .mat-mdc-unelevated-button.mat-mdc-button-base {
-    height: 50px;
+@media (max-width:1025px) {
+    .outer-div {
+        button {
+            padding: 15px 0px;
+        }
+    }
 }

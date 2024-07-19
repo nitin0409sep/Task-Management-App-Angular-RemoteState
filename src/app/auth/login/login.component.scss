@@ -26,10 +26,238 @@
     border-radius: 7px !important;
 }
 
+
+.box {
+    position: absolute;
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: rgb(156, 156, 250);
+    // animation-name: lefttoright;
+    // animation-duration: 1.4s;
+
+    // /* animation-delay: 2s; */
+    // animation-timing-function: linear;
+    // animation-iteration-count: infinite;
+
+    // animation: lefttoright 2s infinite linear;
+}
+
+
 @media (max-width:1025px) {
     .outer-div {
         button {
             padding: 15px 0px;
         }
     }
+}
+
+
+
+@keyframes randomMovement1 {
+    0% {
+        transform: translate(0vw, 0vh);
+    }
+
+    10% {
+        transform: translate(10vw, 20vh);
+    }
+
+    20% {
+        transform: translate(20vw, 10vh);
+    }
+
+    30% {
+        transform: translate(30vw, 40vh);
+    }
+
+    40% {
+        transform: translate(40vw, 30vh);
+    }
+
+    50% {
+        transform: translate(50vw, 60vh);
+    }
+
+    60% {
+        transform: translate(60vw, 20vh);
+    }
+
+    70% {
+        transform: translate(70vw, 80vh);
+    }
+
+    80% {
+        transform: translate(80vw, 10vh);
+    }
+
+    90% {
+        transform: translate(90vw, 50vh);
+    }
+
+    100% {
+        transform: translate(0vw, 0vh);
+    }
+}
+
+@keyframes randomMovement2 {
+    0% {
+        transform: translate(90vw, 90vh);
+    }
+
+    10% {
+        transform: translate(80vw, 30vh);
+    }
+
+    20% {
+        transform: translate(70vw, 20vh);
+    }
+
+    30% {
+        transform: translate(60vw, 50vh);
+    }
+
+    40% {
+        transform: translate(50vw, 10vh);
+    }
+
+    50% {
+        transform: translate(40vw, 40vh);
+    }
+
+    60% {
+        transform: translate(30vw, 20vh);
+    }
+
+    70% {
+        transform: translate(20vw, 70vh);
+    }
+
+    80% {
+        transform: translate(10vw, 40vh);
+    }
+
+    90% {
+        transform: translate(10vw, 50vh);
+    }
+
+    100% {
+        transform: translate(90vw, 90vh);
+    }
+}
+
+@keyframes randomMovement3 {
+    0% {
+        transform: translate(0vw, 90vh);
+    }
+
+    10% {
+        transform: translate(10vw, 30vh);
+    }
+
+    20% {
+        transform: translate(40vw, 10vh);
+    }
+
+    30% {
+        transform: translate(20vw, 60vh);
+    }
+
+    40% {
+        transform: translate(10vw, 50vh);
+    }
+
+    50% {
+        transform: translate(70vw, 30vh);
+    }
+
+    60% {
+        transform: translate(80vw, 60vh);
+    }
+
+    70% {
+        transform: translate(90vw, 60vh);
+    }
+
+    80% {
+        transform: translate(10vw, 70vh);
+    }
+
+    90% {
+        transform: translate(20vw, 40vh);
+    }
+
+    100% {
+        transform: translate(0vw, 90vh);
+    }
+}
+
+@keyframes randomMovement4 {
+    0% {
+        transform: translate(90vw, 0vh);
+    }
+
+    10% {
+        transform: translate(70vw, 20vh);
+    }
+
+    20% {
+        transform: translate(50vw, 40vh);
+    }
+
+    30% {
+        transform: translate(30vw, 10vh);
+    }
+
+    40% {
+        transform: translate(10vw, 50vh);
+    }
+
+    50% {
+        transform: translate(40vw, 30vh);
+    }
+
+    60% {
+        transform: translate(90vw, 20vh);
+    }
+
+    70% {
+        transform: translate(10vw, 80vh);
+    }
+
+    80% {
+        transform: translate(20vw, 10vh);
+    }
+
+    90% {
+        transform: translate(30vw, 70vh);
+    }
+
+    100% {
+        transform: translate(90vw, 0vh);
+    }
+}
+
+#ball1 {
+    animation: randomMovement1 10s infinite cubic-bezier(0.25, 0.1, 0.25, 1);
+
+    background-color: #49a09d;
+}
+
+#ball2 {
+    animation: randomMovement2 10s infinite cubic-bezier(0.25, 0.1, 0.25, 1);
+    background-color: blueviolet;
+    animation-timing-function: ease;
+}
+
+#ball3 {
+    animation: randomMovement3 10s infinite cubic-bezier(0.25, 0.1, 0.25, 1);
+    background-color: burlywood;
+    animation-timing-function: ease-in-out;
+}
+
+#ball4 {
+    animation: randomMovement4 10s infinite linear;
+    background-color: cornflowerblue;
+    animation-timing-function: ease-in;
 }

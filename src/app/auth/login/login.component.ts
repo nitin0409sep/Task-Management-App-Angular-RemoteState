@@ -5,12 +5,12 @@ import { BehaviorSubject, take } from 'rxjs';
 import { AuthLogin } from 'src/app/modals/auth.modal';
 import { AuthService } from 'src/app/service/auth.service';
 import { SnackBarService } from 'src/app/utils/shared-service/snackbar.service';
-import { Cookie } from 'ng2-cookies/ng2-cookies';
+// import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: [],
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   // Loader's
@@ -53,7 +53,7 @@ export class LoginComponent {
 
   public loginWithUsernameAndPassword() {
     if (this.loginForm.invalid) {
-      this.snackbarserviceService.showError('Invalid form, please try again.');
+      this.snackbarserviceService.showError('Please fill all required fields.');
       return;
     }
     this.loading$$.next(true);
@@ -94,5 +94,5 @@ export class LoginComponent {
     });
   }
 
-  public openForgotPasswordDialog() {}
+  public openForgotPasswordDialog() { }
 }

@@ -1,66 +1,43 @@
-<div class="w-screen h-full flex items-center justify-center p-4">
-  <div class="w-full sm:w-1/2 lg:w-1/3 pb-10">  
+<div class="w-screen h-full flex items-center justify-center p-4 outer-div">
+  <div class="w-full sm:w-1/2 lg:w-1/3">
+    <form [formGroup]="loginForm" (ngSubmit)="loginWithUsernameAndPassword()" class="flex flex-col items-center gap-2">
 
-  <form [formGroup]="loginForm" (ngSubmit)="loginWithUsernameAndPassword()" class="flex flex-col items-center">
-    <div class="w-full flex flex-col mb-2 gap-2">
-      <mat-form-field class="pb-3">
-        <mat-label>Email</mat-label>
-        <input matInput required formControlName="username" />
-        <mat-error *ngIf="loginForm.get('username')?.hasError('required')">Useremail is required</mat-error>
-      </mat-form-field>
+      <!-- Heading -->
+      <header class="mb-4">
+        <span class="text-4xl underline decoration-wavy text-white underline-offset text-font">TO DO APP</span>
+      </header>
 
-      <!-- Password -->
-      <mat-form-field class="pb-3 w-full">
-        <mat-label>Password</mat-label>
-        <input #password matInput required formControlName="password" [type]="'password'"
-          autocomplete="current-password" />
-   
-        <span class="material-icons absolute text-lg mr-1 top-5 -ml-6 cursor-pointer hover:text-primary opacity-75"
-          style="margin-top: 2px;" (click)="password.type = password.type === 'text' ? 'password' : 'text'">
-          {{ password.type === 'password' ? 'visibility' : 'visibility_off' }}
-        </span>
+      <!-- Form Fields -->
+      <div class="w-full flex flex-col gap-2 main-div">
+        <mat-form-field>
+          <input matInput required formControlName="username" autocomplete="off" placeholder="Enter your email here!" />
+          <mat-error *ngIf="loginForm.get('username')?.hasError('required')" class="text-white">Useremail is
+            required</mat-error>
+        </mat-form-field>
 
-        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is required</mat-error>
-      </mat-form-field>
-
-    </div>
-
-    <mat-divider class="h-2 w-full"></mat-divider>
-
-    <!-- <div class=" pb-2 font-medium flex justify-between w-full">
-      <div>
-        Don't have an account? <a [routerLink]="['/','auth','register']">
-          <span class="text-blue-500 underline">
-            Register
+        <!-- Password -->
+        <mat-form-field>
+          <input #password matInput required formControlName="password" [type]="'password'" autocomplete="off" />
+          <span class="material-icons absolute text-sm mr-1 top-1/3 -ml-6 cursor-pointer hover:text-primary opacity-75"
+            (click)="password.type = password.type === 'text' ? 'password' : 'text'">
+            {{ password.type === 'password' ? 'visibility' : 'visibility_off' }}
           </span>
-        </a>
+
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')" class="text-white">Password is
+            required</mat-error>
+        </mat-form-field>
+
       </div>
 
-      <span class="text-blue-500 underline cursor-pointer" (click)="openForgotPasswordDialog()">
-        Forgot Password
-      </span>
-    </div> -->
-
-
-    <div class="flex flex-col lg:flex-row justify-between gap-2">
-      <button type="submit" mat-flat-button color="primary" [disabled]="(loading$$ | async) || !loginForm.valid ">
-        <div class="flex items-center col-gap-2 justify-center">
+      <!-- Login Button -->
+      <div class="flex flex-col lg:flex-row justify-between gap-2 w-full">
+        <button type="submit" mat-flat-button class="bg-white flex-1">
           <span *ngIf="(loading$$ | async) === false">Login</span>
           <div *ngIf="loading$$ | async">
             <mat-spinner color="accent" [diameter]="22"></mat-spinner>
           </div>
-        </div>
-      </button>
-    </div>
-  </form>
+        </button>
+      </div>
+    </form>
   </div>
 </div>
-
-
-<!-- <div>
-    <img
-      src="../../../assets/todopic.png"
-      alt="todo-pic"
-      style="height: 100px; width: 100px"
-    />
-  </div> -->

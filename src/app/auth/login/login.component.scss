@@ -1,0 +1,27 @@
+.outer-div {
+    background: linear-gradient(to right, #5f2c82, #49a09d);
+
+    .underline-offset {
+        text-underline-offset: 7px;
+    }
+
+    .text-font {
+        font-family: 'Georgia', serif;
+
+    }
+
+    .main-div {
+        input {
+            padding-left: 10px;
+            ;
+        }
+    }
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+    border-radius: 7px !important;
+}
+
+::ng-deep .mat-mdc-unelevated-button.mat-mdc-button-base {
+    height: 50px;
+}

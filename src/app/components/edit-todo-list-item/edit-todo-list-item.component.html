@@ -1,35 +1,21 @@
 <div class="w-auto">
-    <div class="m-0 px-6 py-2 bg-blue-300 flex justify-between items-center">
-      <h2 style="margin: 0px">Edit Item</h2>
-      <mat-icon matDialogClose matTooltip="Close" class="cursor-pointer"
-        >close</mat-icon
-      >
-    </div>
-  
-    <div class="mt-3 ml-5 mr-5">
-      <input
-        type="text"
-        class="px-3 mb-2 h-8 w-full focus:outline-none rounded-xl border-2 border-gray-300"
-        placeholder="Edit Item"
-        [(ngModel)]="updatedValue"
-        (keyup.enter)="updateList()"
-      />
-    </div>
-  
-    <!-- Submitting Button -->
-    <mat-dialog-actions align="center" class="gap-2">
-      <button
-        class="p-2 px-4 text-white bg-green-500 hover:bg-green-600 active:bg-green-700 focus:outline-none focus:ring focus:ring-green-100"
-        style="border-radius: 10px"
-        (click)="updateList()"
-      >
-        <ng-container *ngIf="!(submitting$$ | async)">Update</ng-container>
-        <mat-spinner
-          *ngIf="submitting$$ | async"
-          [diameter]="22"
-          class="m-1"
-        ></mat-spinner>
-      </button>
-    </mat-dialog-actions>
+  <div class="m-0 px-6 py-2 bg-blue-300 flex justify-between items-center">
+    <h2 style="margin: 0px" class="text-white font-extrabold">Edit Item</h2>
+    <mat-icon matDialogClose matTooltip="Close" class="cursor-pointer">close</mat-icon>
   </div>
-  
+
+  <div class="mt-3 ml-5 mr-5">
+    <input type="text" class="px-3 mb-2 h-8 w-full focus:outline-none rounded-xl border-2 border-gray-300"
+      placeholder="Edit Item" [(ngModel)]="updatedValue" (keyup.enter)="updateList()" />
+  </div>
+
+  <!-- Submitting Button -->
+  <mat-dialog-actions align="center" class="gap-2">
+    <button
+      class="p-2 px-4 text-white bg-green-500 hover:bg-green-600 active:bg-green-700 focus:outline-none focus:ring focus:ring-green-100"
+      style="border-radius: 10px" (click)="updateList()">
+      <ng-container *ngIf="!(submitting$$ | async)">Update</ng-container>
+      <mat-spinner *ngIf="submitting$$ | async" [diameter]="22" class="m-1"></mat-spinner>
+    </button>
+  </mat-dialog-actions>
+</div>

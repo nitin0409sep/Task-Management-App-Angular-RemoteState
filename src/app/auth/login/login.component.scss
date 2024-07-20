@@ -102,7 +102,7 @@
 
 @keyframes randomMovement2 {
     0% {
-        transform: translate(90vw, 90vh);
+        transform: translate(calc(92vw - 16px), calc(93vh - 16px));
     }
 
     10% {
@@ -198,19 +198,19 @@
     }
 
     10% {
-        transform: translate(70vw, 20vh);
+        transform: translate(70vw, 30vh);
     }
 
     20% {
-        transform: translate(50vw, 40vh);
+        transform: translate(50vw, 60vh);
     }
 
     30% {
-        transform: translate(30vw, 10vh);
+        transform: translate(30vw, 90vh);
     }
 
     40% {
-        transform: translate(10vw, 50vh);
+        transform: translate(10vw, 0vh);
     }
 
     50% {
@@ -218,7 +218,7 @@
     }
 
     60% {
-        transform: translate(90vw, 20vh);
+        transform: translate(90vw, 60vh);
     }
 
     70% {
@@ -234,30 +234,29 @@
     }
 
     100% {
-        transform: translate(90vw, 0vh);
+        transform: translate(calc(90vw - 32px), 0vh);
     }
 }
 
 #ball1 {
-    animation: randomMovement1 10s infinite cubic-bezier(0.25, 0.1, 0.25, 1);
-
+    animation: randomMovement1 10s infinite linear;
     background-color: #49a09d;
 }
 
 #ball2 {
-    animation: randomMovement2 10s infinite cubic-bezier(0.25, 0.1, 0.25, 1);
+    animation: randomMovement2 10s infinite ease-in-out;
     background-color: blueviolet;
     animation-timing-function: ease;
 }
 
 #ball3 {
-    animation: randomMovement3 10s infinite cubic-bezier(0.25, 0.1, 0.25, 1);
+    animation: randomMovement3 10s infinite ease-in-out;
     background-color: burlywood;
     animation-timing-function: ease-in-out;
 }
 
 #ball4 {
-    animation: randomMovement4 10s infinite linear;
+    animation: randomMovement4 10s infinite ease-in;
     background-color: cornflowerblue;
     animation-timing-function: ease-in;
 }

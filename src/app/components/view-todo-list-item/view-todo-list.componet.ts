@@ -28,6 +28,7 @@ export class ViewTodoListItemComponent implements OnInit {
     // 'status',
     // 'progress',
     // 'priority',
+    // 'complete'
     'action',
   ];
   public dataSource$$ = new BehaviorSubject<any>([]);
@@ -45,7 +46,7 @@ export class ViewTodoListItemComponent implements OnInit {
     private router: Router,
     private snackbarservice: SnackBarService,
     private fb: FormBuilder
-  ) {}
+  ) { }
 
   public deleting$$ = new BehaviorSubject<boolean>(false);
 
@@ -72,8 +73,8 @@ export class ViewTodoListItemComponent implements OnInit {
           this.searchForm.get('filter')?.value === 'Item Id'
             ? this.updateQueryParams({ search: null, id: val })
             : val.search.length
-            ? this.updateQueryParams({ search: val.trim(), id: null })
-            : this.updateQueryParams({ search: null, id: null });
+              ? this.updateQueryParams({ search: val.trim(), id: null })
+              : this.updateQueryParams({ search: null, id: null });
         }
       });
 
@@ -124,7 +125,12 @@ export class ViewTodoListItemComponent implements OnInit {
 
   // Delete Items
   public deleteItem(element?: Todo) {
-    const dialog = this.dialog.open(ConfirmationDialogComponent);
+    const dialog = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        message: `Do you want to delete ${element?.value} ?`,
+      }
+    });
+
     dialog.afterClosed().subscribe((val) => {
       if (val) {
         if (!element?.id) {
@@ -145,7 +151,12 @@ export class ViewTodoListItemComponent implements OnInit {
 
   // Delete All Items
   public deleteAllItems() {
-    const dialog = this.dialog.open(ConfirmationDialogComponent);
+    const dialog = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        message: "Do you want to delete all items ?",
+      }
+    });
+
     dialog.afterClosed().subscribe((val) => {
       if (val) {
         this.todoservice.deleteAllItems().subscribe({

@@ -1,5 +1,5 @@
 <div class="flex flex-col row-gap-4 justify-between">
-  <h2 mat-dialog-title>Are you sure you want to perform this action?</h2>
+  <h2 mat-dialog-title style="color: red;">{{ this.data.message }}</h2>
   <mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="false">Cancel</button>
     <button mat-button color="primary" [mat-dialog-close]="true">Yes</button>

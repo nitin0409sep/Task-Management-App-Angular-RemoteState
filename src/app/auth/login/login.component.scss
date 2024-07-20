@@ -244,19 +244,17 @@
 }
 
 #ball2 {
-    animation: randomMovement2 10s infinite ease-in-out;
+    animation: randomMovement2 10s infinite ease-out;
     background-color: blueviolet;
-    animation-timing-function: ease;
 }
 
 #ball3 {
     animation: randomMovement3 10s infinite ease-in-out;
     background-color: burlywood;
-    animation-timing-function: ease-in-out;
+
 }
 
 #ball4 {
     animation: randomMovement4 10s infinite ease-in;
     background-color: cornflowerblue;
-    animation-timing-function: ease-in;
 }

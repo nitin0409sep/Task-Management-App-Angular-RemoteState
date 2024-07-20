@@ -14,7 +14,7 @@ import { Todo } from 'src/app/modals/tododata.interface';
 @Component({
   selector: 'view-todo-list-item',
   templateUrl: './view-todo-list-item.component.html',
-  styleUrls: [],
+  styleUrls: ['./view-todo-list-item.component.scss'],
 })
 export class ViewTodoListItemComponent implements OnInit {
   title = 'todo-angular';

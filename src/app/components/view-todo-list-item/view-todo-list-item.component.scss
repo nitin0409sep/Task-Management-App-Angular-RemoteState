@@ -1,0 +1,9 @@
+.main-search {
+    flex-grow: 3;
+}
+
+@media (max-width:740px) {
+    .wrap-button {
+        flex-direction: column;
+    }
+}

@@ -1,14 +1,14 @@
 <div class="px-4">
   <div class="py-4">
-    <form [formGroup]="searchForm" class="flex w-full gap-6 flex-wrap">
-      <div class="flex items-center border-gray-400 rounded-full justify-between flex-1" style="
+    <form [formGroup]="searchForm" class="flex w-full gap-6 flex-wrap wrap-button">
+      <div class="flex items-center border-gray-400 rounded-full justify-between flex-1 gap-2 main-search" style="
           border-width: 1px;
           max-height: 50px;
           padding: 4px 10px;
           align-items: center;
           min-width: 200px;
         ">
-        <div class="flex items-center w-full">
+        <div class="flex items-center w-full gap-1">
           <span class="material-icons">search</span>
           <input [type]="
               searchForm.get('filter')?.value === 'Item Id' ? 'number' : 'text'
@@ -30,19 +30,20 @@
         </mat-menu>
       </div>
 
-      <div class="flex gap-5">
+      <div class="flex gap-5 button-add-delete flex-1 text-nowrap">
         <button
-          class="p-2 px-10 text-md text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-100"
+          class="p-2 px-10 button-add-delete inside-buttons-padding text-md text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-100 flex-1"
           style="border-radius: 10px" (click)="$event.stopPropagation(); addItems()">
           Add Items
         </button>
 
-        <button class="p-2 text-md px-10" style="border-radius: 10px" [ngClass]="
+        <button class="p-2 text-md button-add-delete inside-buttons-padding px-10 flex-1" style="border-radius: 10px"
+          [ngClass]="
           this.dataSource$$.value.length !== 0
             ? 'text-white bg-red-500 hover:bg-red-600 active:bg-red-700 focus:outline-none focus:ring focus:ring-red-100'
             : 'bg-slate-200 text-gray-500'
         " (click)="$event.stopPropagation(); deleteAllItems()" [disabled]="this.dataSource$$.value.length === 0">
-          Delete All Items
+          Delete Items
         </button>
       </div>
     </form>

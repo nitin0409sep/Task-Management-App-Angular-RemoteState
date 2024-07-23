@@ -22,14 +22,7 @@ export class ViewTodoListItemComponent implements OnInit {
   public searchForm!: FormGroup;
 
   public displayedColumns = [
-    'sno',
-    'id',
-    'value',
-    // 'status',
-    // 'progress',
-    // 'priority',
-    // 'complete'
-    'action',
+    'sno', 'addedDate', 'task', 'priority', 'deadlineDate', 'progress', 'status', 'comment', 'action'
   ];
   public dataSource$$ = new BehaviorSubject<any>([]);
   public search = new FormControl('', []);
@@ -111,7 +104,7 @@ export class ViewTodoListItemComponent implements OnInit {
   // Add Items
   public addItems() {
     this.dialog.open(AddTodoListComponent, {
-      width: '500px',
+      width: '600px',
     });
   }
 

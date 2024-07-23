@@ -1,7 +1,7 @@
 import { HttpBackend, HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, map, Observable, tap, throttleTime } from "rxjs";
-import { AuthLogin } from "../modals/auth.modal";
+import { AuthLogin, RegisterUser } from "../modals/auth.modal";
 // import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { LocalStorageKey, LocalStorageService } from "../utils/shared-service/localstorage.service";
 import { Router } from "@angular/router";
@@ -28,6 +28,17 @@ export class AuthService {
 
     public userLogin$(reqBody: AuthLogin): Observable<any> {
         return this.httpClientNoInterceptors.post<any>(`${this.apiUrl}/login`, reqBody)
+            .pipe(
+                map((res) => { return res }),
+                tap((data) => {
+                    this.saveToLocalStorage(data.token);
+                    this.isLoggedIn$$.next(true);
+                })
+            ) as Observable<any>;
+    }
+
+    public registerUser$(reqBody: RegisterUser): Observable<any> {
+        return this.httpClientNoInterceptors.post<any>(`${this.apiUrl}/register`, reqBody)
             .pipe(
                 map((res) => { return res }),
                 tap((data) => {

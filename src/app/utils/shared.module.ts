@@ -18,6 +18,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select'
 
 import { ConfirmationDialogComponent } from './shared-componets/confirmation-dialog/confirmation-dialog.component';
 
@@ -41,7 +42,8 @@ import { ConfirmationDialogComponent } from './shared-componets/confirmation-dia
     MatProgressBarModule,
     MatButtonModule,
     MatMenuModule,
+    MatSelectModule,
     ConfirmationDialogComponent,
   ],
 })
-export class SharedModule {}
+export class SharedModule { }

@@ -5,8 +5,73 @@
   </div>
 
   <div class="mt-3 ml-5 mr-5">
-    <input type="text" class="px-3 mb-2 h-8 w-full focus:outline-none rounded-xl border-2 border-gray-300"
-      placeholder="Edit Item" [(ngModel)]="updatedValue" (keyup.enter)="updateList()" />
+    <div class="mt-3 pl-3 pr-3" style="max-height: 440px; overflow-y: auto;">
+      <form [formGroup]="updateTaskForm">
+
+        <div class="flex gap-4 items-center flex-wrap pb-5 relative shadow-lg p-5 m-2">
+          <div class="flex flex-1 gap-2 mb-1">
+            <!-- Name -->
+            <mat-form-field class="flex-1" appearance="outline">
+              <mat-label>Task Name</mat-label>
+              <input matInput formControlName="name">
+              <mat-error *ngIf="updateTaskForm.get('name')?.hasError('required')">Task name is required</mat-error>
+            </mat-form-field>
+
+            <!-- Priority -->
+            <mat-form-field appearance="outline" color="primary" class="flex-1">
+              <mat-label>
+                <span>Priority</span>
+              </mat-label>
+
+              <mat-select matInput formControlName="priority">
+                <mat-option *ngFor="let item of priority" [value]="item">
+                  <span class="font-normal text-sm">
+                    {{ item}}
+                  </span>
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="updateTaskForm.get('priority')?.hasError('required')">Priority is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="flex flex-1 gap-2 mb-2">
+            <mat-form-field appearance="outline" class="flex-1">
+              <mat-label>Dead Line date</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="deadline">
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="updateTaskForm.get('deadline')?.hasError('required')">Dead Line Date is required</mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field class="flex-1" appearance="outline">
+              <mat-label>Progress</mat-label>
+              <input matInput formControlName="progress">
+              <mat-error *ngIf="updateTaskForm.get('progress')?.hasError('required')">Progress is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="flex flex-1 gap-2">
+            <mat-form-field appearance="outline" color="primary" class="flex-1">
+              <mat-label>
+                <span>Status</span>
+              </mat-label>
+
+              <mat-select matInput formControlName="status">
+                <mat-option *ngFor="let item of status" [value]="item">
+                  <span class="font-normal text-sm">
+                    {{ item}}
+                  </span>
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="updateTaskForm.get('status')?.hasError('required')">Status is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </form>
+    </div>
   </div>
 
   <!-- Submitting Button -->

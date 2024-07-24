@@ -23,7 +23,7 @@ export class TodoService {
   public constructor(
     private http: HttpClient,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   // Reference Loader
   public setRefreshLoader(loading$$: BehaviorSubject<boolean>): void {

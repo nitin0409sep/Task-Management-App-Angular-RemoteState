@@ -12,11 +12,11 @@
             </header>
 
             <!-- Form Fields -->
-            <div class="w-full flex flex-col gap-2 main-div">
+            <div class="w-full flex flex-col gap-6 main-div">
 
                 <!-- User Name -->
                 <mat-form-field>
-                    <input matInput required formControlName="username" autocomplete="off"  class="bg-white"
+                    <input matInput required formControlName="username" autocomplete="off" class="bg-white"
                         placeholder="Enter your name here!" />
                     <mat-error *ngIf="registerForm.get('username')?.hasError('required')" class="text-white">Username is
                         required</mat-error>
@@ -54,13 +54,14 @@
                         {{ confirmPassword.type === 'password' ? 'visibility' : 'visibility_off' }}
                     </span>
 
-                    <mat-error *ngIf="registerForm.get('password')?.hasError('required')" class="text-white">Confirm Password is
+                    <mat-error *ngIf="registerForm.get('password')?.hasError('required')" class="text-white">Confirm
+                        Password is
                         required</mat-error>
                 </mat-form-field>
 
             </div>
 
-            <div class=" pb-2 font-medium flex justify-center w-full text-white">
+            <div class="mt-4 pb-2 font-medium flex justify-center w-full text-white">
                 <div>
                     Have already an account? <a [routerLink]="['/','auth','login']">
                         <span class="text-blue-300 underline">

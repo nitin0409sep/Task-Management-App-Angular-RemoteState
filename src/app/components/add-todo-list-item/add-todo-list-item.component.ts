@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BehaviorSubject, map } from 'rxjs';
 import { TodoService } from 'src/app/service/todo.service';
+import { ConfirmationDialogComponent } from 'src/app/utils/shared-componets/confirmation-dialog/confirmation-dialog.component';
 import { SnackBarService } from 'src/app/utils/shared-service/snackbar.service';
 
 @Component({
@@ -11,20 +12,18 @@ import { SnackBarService } from 'src/app/utils/shared-service/snackbar.service';
   styleUrls: ['add-todo-list-item.component.scss'],
 })
 export class AddTodoListComponent implements OnInit {
-  public itemList$$ = new BehaviorSubject<string[]>([]);
-
   public itemsForm!: FormGroup;
-
-  public itemValue = '';
 
   public submitting$$ = new BehaviorSubject<boolean>(false);
 
   public priority: string[] = ['High', 'Medium', 'Low'];
+  public status: string[] = ['Started', 'Pending', 'Completed'];
 
   public constructor(
     private todoservice: TodoService,
     private snackbarservice: SnackBarService,
-    private diaog: MatDialogRef<AddTodoListComponent>,
+    private dialog: MatDialog,
+    private dialogRef: MatDialogRef<AddTodoListComponent>,
     private fb: FormBuilder,
   ) { }
 
@@ -44,7 +43,7 @@ export class AddTodoListComponent implements OnInit {
     const fg = this.fb.group({
       name: ['', [Validators.required]],
       priority: ['', [Validators.required]],
-      deadline: [Date, [Validators.required]],
+      deadline: ['', [Validators.required]],
       progress: [null, [Validators.required]],
       status: ['', [Validators.required]],
     })
@@ -65,20 +64,23 @@ export class AddTodoListComponent implements OnInit {
   }
 
   public saveList() {
-    console.log(this.itemsArray.value);
-
-    if (!this.itemList$$.value.length) {
+    if (!this.itemsForm.value.itemsArray.length) {
       this.snackbarservice.showError('Add atleast one item before saving');
       return;
     }
 
-    const reqbody = {
-      value: this.itemList$$.value,
-    };
+    const reqbody = this.itemsForm.value.itemsArray.map((task: any) => {
+      const { name, deadline, ...rest } = task;
+
+      return {
+        ...rest,
+        value: name,
+        dead_line_date: deadline
+      }
+    })
 
     this.todoservice.addItems(reqbody).subscribe({
       next: (val) => {
-        console.log(val);
         this.snackbarservice.showMessage(val);
         this.close();
       },
@@ -88,14 +90,18 @@ export class AddTodoListComponent implements OnInit {
     });
   }
 
+  // Close Dialog
   public close() {
-    this.diaog.close();
+    const dialog = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        message: `Do you want to close add tasks dialog box ?`,
+      }
+    });
 
-    // const dialog = this.dialog.open(ConfirmationDialogComponent, {
-    //   data: {
-    //     message: `Do you want to delete ${element?.value} ?`,
-    //   }
-    // });
-
+    dialog.afterClosed().subscribe((val) => {
+      if (val) {
+        this.dialogRef.close();
+      }
+    })
   }
 }

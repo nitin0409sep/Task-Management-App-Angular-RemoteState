@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { BehaviorSubject } from "rxjs";
+import { Router } from "@angular/router";
+import { BehaviorSubject, take } from "rxjs";
 import { RegisterUser } from "src/app/modals/auth.modal";
 import { AuthService } from "src/app/service/auth.service";
 import { SnackBarService } from "src/app/utils/shared-service/snackbar.service";
@@ -26,7 +27,10 @@ export class RegistrationComponent {
     public constructor(
         private authService: AuthService,
         private snackbarserviceService: SnackBarService,
-    ) { }
+        private router: Router,
+    ) {
+        this.checkIfLoggedIn();
+    }
 
     public ngOnInit() {
         this.createFrom();
@@ -71,17 +75,35 @@ export class RegistrationComponent {
             password: this.registerForm.get('password')!.value
         }
 
-        // Hit API
+        // Register API
         this.loading$$.next(true);
-        this.authService.registerUser$(reqBody).subscribe((val) => {
-            if (val) {
+        this.authService.registerUser$(reqBody).subscribe({
+            next: (val) => {
+                if (val) {
+                    this.loading$$.next(false);
+                    this.snackbarserviceService.showMessage("User Registered Successfully.");
+                    this.router.navigate(['/view-list']);
+                } else {
+                    this.loading$$.next(false);
+                    this.snackbarserviceService.showError("User is not Registered.");
+                }
+            },
+            error: (err) => {
                 this.loading$$.next(false);
-                this.snackbarserviceService.showMessage("User Registered Successfully.");
-            } else {
-                this.loading$$.next(false);
-                this.snackbarserviceService.showError("User is not Registered.");
+                this.snackbarserviceService.showError(err.error.error);
             }
         })
+    }
+
+
+    public checkIfLoggedIn() {
+        this.authService.isLoggedIn$.pipe(take(1)).subscribe((isLoggedIn) => {
+            if (isLoggedIn) {
+                this.router.navigate(['/view-list']);
+            } else {
+                this.isLoggedIn$$.next(false);
+            }
+        });
     }
 
     public openForgotPasswordDialog() { }

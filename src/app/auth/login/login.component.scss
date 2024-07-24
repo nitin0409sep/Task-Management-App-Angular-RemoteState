@@ -26,6 +26,14 @@
     border-radius: 7px !important;
 }
 
+::ng-deep .mdc-line-ripple::before {
+    width: 0px !important;
+}
+
+::ng-deep .mdc-line-ripple::after {
+    width: 0px !important;
+}
+
 
 .box {
     position: absolute;

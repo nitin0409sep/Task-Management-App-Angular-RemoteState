@@ -26,6 +26,22 @@
     border-radius: 7px !important;
 }
 
+::ng-deep .mdc-line-ripple::before {
+    width: 0px !important;
+}
+
+::ng-deep .mdc-line-ripple::after {
+    width: 0px !important;
+}
+
+// ::ng-deep  {
+//     width: 0px !important;
+// }
+
+// ::ng-deep .mdc-text-field--filled.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple::before{
+//     border-bottom: 0px;
+// }
+
 
 .box {
     position: absolute;

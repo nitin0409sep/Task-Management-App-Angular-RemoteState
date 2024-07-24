@@ -8,12 +8,12 @@ import { map, Observable } from 'rxjs';
 export class ProfileService {
   private apiUrl = 'http://localhost:80/api/data/profile';
 
-  private constructor(private http: HttpClient) {}
+  private constructor(private http: HttpClient) { }
 
   public getProfile(): Observable<any> {
     return this.http.get<any>(this.apiUrl).pipe(
       map((res) => {
-        return res.profileData;
+        return res.user;
       })
     ) as Observable<any>;
   }

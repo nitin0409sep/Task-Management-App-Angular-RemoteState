@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './utils/shared.module';
+import { MaterialModule } from './utils/material-ui/material.module';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './auth/interceptor/auth.interceptor';
@@ -19,9 +20,10 @@ import { ErrorInterceptor } from './auth/interceptor/error.interceptor';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule,
     HttpClientModule,
     CommonModule,
+    SharedModule,
+    MaterialModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
@@ -29,4 +31,4 @@ import { ErrorInterceptor } from './auth/interceptor/error.interceptor';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

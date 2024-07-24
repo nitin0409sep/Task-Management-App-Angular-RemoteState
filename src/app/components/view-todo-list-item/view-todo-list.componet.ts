@@ -10,6 +10,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { AddTodoListComponent } from '../add-todo-list-item/add-todo-list-item.component';
 import { EditTodoListComponent } from '../edit-todo-list-item/edit-todo-list-item.component';
 import { Todo } from 'src/app/modals/tododata.interface';
+import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'view-todo-list-item',
@@ -32,6 +33,7 @@ export class ViewTodoListItemComponent implements OnInit {
 
   public pageIndex: number = 0;
   public limit: number = 10;
+  public sortedData!: any[];
 
   public constructor(
     private dialog: MatDialog,
@@ -90,7 +92,7 @@ export class ViewTodoListItemComponent implements OnInit {
       next: (data) => {
         this.totalItems = +data.count;
         this.dataSource$$.next(data.items);
-
+        this.sortedData = this.dataSource$$.value;
         this.loading$$.next(false);
       },
       error: (err) => {
@@ -184,4 +186,40 @@ export class ViewTodoListItemComponent implements OnInit {
     this.pageIndex = event.pageIndex;
     this.updateQueryParams({ search: null }, +this.pageIndex, +this.limit);
   }
+
+  // Sort Data
+  public sortData(sort: Sort) {
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = this.dataSource$$.value;
+      return;
+    }
+
+    this.sortedData = this.dataSource$$.value.sort((a: any, b: any) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'addedDate':
+          return this.compare(a.addedDate, b.addedDate, isAsc);
+        case 'deadlineDate':
+          return this.compare(a.deadlineDate, b.deadlineDate, isAsc);
+        case 'task':
+          return this.compare(a.task, b.task, isAsc);
+        case 'progress':
+          return this.compare(a.progress, b.progress, isAsc);
+        case 'priority':
+          return this.compare(a.priority, b.priority, isAsc);
+        case 'status':
+          return this.compare(a.status, b.status, isAsc);
+        default:
+          return 0;
+      }
+    });
+
+    this.dataSource$$.next([...this.sortedData]);
+  }
+
+  // Sorting Function
+  public compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
 }

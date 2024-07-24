@@ -1,0 +1,85 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* We can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.font-poppins-600 {
+  font-family: "Poppins";
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: rgb(219 234 254);
+}
+
+// Mat Form
+.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  // min
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  position: relative;
+  // background-color: #2962FF;
+  height: 0px;
+}
+
+.mat-mdc-form-field-infix {
+  min-height: 10px;
+  //  height:30px;
+}
+
+.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-floating-label {
+  top: 75%;
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+.mat-mdc-select-panel {
+  max-height: 215px !important;
+}
+
+.mat-mdc-option {
+  min-height: 40px !important;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+
+.mat-mdc-select-arrow svg {
+  transform: translate(-50%, -50%);
+}
+
+.mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+  width: 200px;
+  height: 40px;
+  padding-top: 0px;
+}
+
+.mat-mdc-icon-button.mat-mdc-button-base {
+  padding-top: 6px;
+}
+
+.mdc-notched-outline .mdc-notched-outline__notch {
+  border-width: 5px;
+}
+
+.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field
+  .mdc-notched-outline__notch {
+  border-right-width: 0px;
+}
+

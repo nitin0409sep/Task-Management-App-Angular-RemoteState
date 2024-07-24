@@ -9,11 +9,12 @@
 
       <!-- Heading -->
       <header class="mb-4">
-        <span class="text-4xl underline decoration-wavy text-white underline-offset text-font">TO DO APP</span>
+        <span class="text-4xl underline decoration-wavy text-white underline-offset text-font">TASK MANAGEMENT
+          APP</span>
       </header>
 
       <!-- Form Fields -->
-      <div class="w-full flex flex-col gap-2 main-div">
+      <div class="w-full flex flex-col gap-6 main-div">
         <mat-form-field>
           <input matInput required formControlName="username" autocomplete="off" placeholder="Enter your email here!" />
           <mat-error *ngIf="loginForm.get('username')?.hasError('required')" class="text-white">Useremail is
@@ -35,8 +36,8 @@
 
       </div>
 
-      <div class=" pb-2 font-medium flex justify-between w-full text-white">
-        <div>
+      <div class="mt-4 pb-2 font-medium flex justify-between w-full text-white">
+        <div class="px-4">
           Don't have an account? <a [routerLink]="['/','auth','register']">
             <span class="text-blue-300 underline">
               Register
@@ -44,7 +45,7 @@
           </a>
         </div>
 
-        <span class="text-blue-300 underline cursor-pointer">
+        <span class="text-blue-300 underline cursor-pointer px-4">
           Forgot Password
         </span>
       </div>

@@ -88,7 +88,7 @@ export class ViewTodoListItemComponent implements OnInit {
     this.loading$$.next(true);
     this.todoservice.getData().subscribe({
       next: (data) => {
-        this.totalItems = +data.count ?? 0;
+        this.totalItems = +data.count;
         this.dataSource$$.next(data.items);
 
         this.loading$$.next(false);
@@ -111,7 +111,7 @@ export class ViewTodoListItemComponent implements OnInit {
   // Update Items
   public updateItem(element: Todo) {
     this.dialog.open(EditTodoListComponent, {
-      width: '500px',
+      width: '600px',
       data: element,
     });
   }

@@ -241,7 +241,7 @@ export class ViewTodoListItemComponent implements OnInit {
     "Completed": 6
   };
 
-
+  // Priority
   public prioritycompare(a: string, b: string, isAsc: boolean): number {
     const priorityA = this.priorityStatusMap[a] || 0;
     const priorityB = this.priorityStatusMap[b] || 0;
@@ -251,6 +251,7 @@ export class ViewTodoListItemComponent implements OnInit {
     return 0;
   }
 
+  // Status
   public statuscompare(a: string, b: string, isAsc: boolean): number {
     const statusA = this.priorityStatusMap[a] || 0;
     const statusB = this.priorityStatusMap[b] || 0;
@@ -259,5 +260,12 @@ export class ViewTodoListItemComponent implements OnInit {
     if (statusA > statusB) return isAsc ? 1 : -1;
     return 0;
   }
+
+  public viewComments(id: number) {
+    this.router.navigate(['./', 'view-comment'], {
+      queryParams: { id },
+    })
+  }
+
 
 }

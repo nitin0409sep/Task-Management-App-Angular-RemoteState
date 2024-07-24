@@ -16,18 +16,9 @@
             class="h-4 w-full focus:outline-none" />
         </div>
 
-        <button [matMenuTriggerFor]="menu" class="flex">
+        <button class="flex">
           <mat-icon>tune</mat-icon>
         </button>
-
-        <mat-menu #menu="matMenu">
-          <!-- <button mat-menu-item (click)="searchForm.get('filter')?.patchValue('Item Id')">
-            <span>Item Id</span>
-          </button> -->
-          <button mat-menu-item (click)="searchForm.get('filter')?.patchValue('Task')">
-            <span>Task</span>
-          </button>
-        </mat-menu>
       </div>
 
       <div class="flex gap-5 button-add-delete flex-1 whitespace-nowrap ">

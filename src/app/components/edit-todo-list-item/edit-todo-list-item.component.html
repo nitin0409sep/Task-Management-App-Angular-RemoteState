@@ -41,14 +41,19 @@
               <mat-hint>MM/DD/YYYY</mat-hint>
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
-              <mat-error *ngIf="updateTaskForm.get('deadline')?.hasError('required')">Dead Line Date is required</mat-error>
+              <mat-error *ngIf="updateTaskForm.get('deadline')?.hasError('required')">Dead Line Date is
+                required</mat-error>
             </mat-form-field>
 
 
             <mat-form-field class="flex-1" appearance="outline">
               <mat-label>Progress</mat-label>
-              <input matInput formControlName="progress">
+              <input matInput formControlName="progress" type="number" min="0" max="100">
               <mat-error *ngIf="updateTaskForm.get('progress')?.hasError('required')">Progress is required</mat-error>
+              <mat-error *ngIf="updateTaskForm.get('progress')?.hasError('min')">Progress min value should be
+                0.</mat-error>
+              <mat-error *ngIf="updateTaskForm.get('progress')?.hasError('max')">Progress max value should be
+                100.</mat-error>
             </mat-form-field>
           </div>
 
@@ -76,9 +81,11 @@
 
   <!-- Submitting Button -->
   <mat-dialog-actions align="center" class="gap-2">
-    <button
-      class="p-2 px-4 text-white bg-green-500 hover:bg-green-600 active:bg-green-700 focus:outline-none focus:ring focus:ring-green-100"
-      style="border-radius: 10px" (click)="updateList()">
+    <button [disabled]="!updateTaskForm.valid" [ngClass]="{ 
+      'bg-gray-400': !updateTaskForm.valid, 
+      ' bg-green-500 hover:bg-green-600 active:bg-green-700': updateTaskForm.valid 
+    }" class="p-2 px-4 text-white focus:outline-none focus:ring focus:ring-green-100" style="border-radius: 10px"
+      (click)="updateList()">
       <ng-container *ngIf="!(submitting$$ | async)">Update</ng-container>
       <mat-spinner *ngIf="submitting$$ | async" [diameter]="22" class="m-1"></mat-spinner>
     </button>

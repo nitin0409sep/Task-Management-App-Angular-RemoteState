@@ -44,7 +44,7 @@ export class AddTodoListComponent implements OnInit {
       name: ['', [Validators.required]],
       priority: ['', [Validators.required]],
       deadline: ['', [Validators.required]],
-      progress: [null, [Validators.required]],
+      progress: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
       status: ['', [Validators.required]],
     })
 

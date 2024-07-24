@@ -64,13 +64,9 @@ export class ViewTodoListItemComponent implements OnInit {
       .get('search')
       ?.valueChanges.pipe(debounceTime(300))
       .subscribe((val) => {
-        if (this.dataSource$$.value.length) {
-          this.searchForm.get('filter')?.value === 'Item Id'
-            ? this.updateQueryParams({ search: null, id: val })
-            : val.search.length
-              ? this.updateQueryParams({ search: val.trim(), id: null })
-              : this.updateQueryParams({ search: null, id: null });
-        }
+        val.search.length
+          ? this.updateQueryParams({ search: val.trim(), id: null })
+          : this.updateQueryParams({ search: null, id: null });
       });
 
     // on hard refresh or initallay it should be null
@@ -195,20 +191,21 @@ export class ViewTodoListItemComponent implements OnInit {
     }
 
     this.sortedData = this.dataSource$$.value.sort((a: any, b: any) => {
+      console.log(a, b);
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'addedDate':
-          return this.compare(a.addedDate, b.addedDate, isAsc);
+          return this.datecompare(a.added_date, b.added_date, isAsc);
         case 'deadlineDate':
-          return this.compare(a.deadlineDate, b.deadlineDate, isAsc);
+          return this.datecompare(a.dead_line_date, b.dead_line_date, isAsc);
         case 'task':
           return this.compare(a.task, b.task, isAsc);
         case 'progress':
           return this.compare(a.progress, b.progress, isAsc);
         case 'priority':
-          return this.compare(a.priority, b.priority, isAsc);
+          return this.prioritycompare(a.priority, b.priority, isAsc);
         case 'status':
-          return this.compare(a.status, b.status, isAsc);
+          return this.statuscompare(a.status, b.status, isAsc);
         default:
           return 0;
       }
@@ -221,5 +218,54 @@ export class ViewTodoListItemComponent implements OnInit {
   public compare(a: number | string, b: number | string, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
+
+  // Date Comparision
+  public datecompare(a: Date, b: Date, isAsc: boolean): number {
+    const dateA = a instanceof Date ? a : new Date(a);
+    const dateB = b instanceof Date ? b : new Date(b);
+
+    if (dateA < dateB) return isAsc ? -1 : 1;
+    if (dateA > dateB) return isAsc ? 1 : -1;
+
+    return 0;
+  }
+
+  // Mapping from priority & status labels to numerical values
+  public priorityStatusMap: { [key: string]: number } = {
+    'Low': 1,
+    'Medium': 2,
+    'High': 3,
+
+    "Started": 4,
+    "Pending": 5,
+    "Completed": 6
+  };
+
+  // Priority
+  public prioritycompare(a: string, b: string, isAsc: boolean): number {
+    const priorityA = this.priorityStatusMap[a] || 0;
+    const priorityB = this.priorityStatusMap[b] || 0;
+
+    if (priorityA < priorityB) return isAsc ? -1 : 1;
+    if (priorityA > priorityB) return isAsc ? 1 : -1;
+    return 0;
+  }
+
+  // Status
+  public statuscompare(a: string, b: string, isAsc: boolean): number {
+    const statusA = this.priorityStatusMap[a] || 0;
+    const statusB = this.priorityStatusMap[b] || 0;
+
+    if (statusA < statusB) return isAsc ? -1 : 1;
+    if (statusA > statusB) return isAsc ? 1 : -1;
+    return 0;
+  }
+
+  public viewComments(id: number) {
+    this.router.navigate(['./', 'view-comment'], {
+      queryParams: { id },
+    })
+  }
+
 
 }

@@ -50,8 +50,12 @@
 
             <mat-form-field class="flex-1" appearance="outline">
               <mat-label>Progress</mat-label>
-              <input matInput formControlName="progress">
+              <input matInput formControlName="progress" type="number" min="0" max="100">
               <mat-error *ngIf="item.get('progress')?.hasError('required')">Progress is required</mat-error>
+              <mat-error *ngIf="item.get('progress')?.hasError('min')">Progress min value should be
+                0.</mat-error>
+              <mat-error *ngIf="item.get('progress')?.hasError('max')">Progress max value should be
+                100.</mat-error>
             </mat-form-field>
           </div>
 
@@ -81,12 +85,16 @@
 
   <!-- Submitting Button -->
   <mat-dialog-actions align="end" class="gap-2 dialog-buttons">
-    <button
-      class="p-2 px-8 text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-100"
-      style="border-radius: 10px" (click)="addFormControl()">Add Task</button>
-    <button
-      class="p-2 px-8 text-white bg-green-500 hover:bg-green-600 active:bg-green-700 focus:outline-none focus:ring focus:ring-green-100"
-      style="border-radius: 10px" (click)="saveList()">
+    <button [disabled]="!this.itemsForm.valid" [ngClass]="{ 
+      'bg-gray-400': !itemsForm.valid, 
+      'bg-blue-500 hover:bg-blue-600 active:bg-blue-700': itemsForm.valid 
+    }" class="p-2 px-8 text-white focus:outline-none focus:ring focus:ring-blue-100" style="border-radius: 10px"
+      (click)="addFormControl()">Add Task</button>
+    <button [disabled]="!this.itemsForm.valid" [ngClass]="{ 
+      'bg-gray-400': !itemsForm.valid, 
+      ' bg-green-500 hover:bg-green-600 active:bg-green-700': itemsForm.valid 
+    }" class="p-2 px-8 text-white focus:outline-none focus:ring focus:ring-green-100" style="border-radius: 10px"
+      (click)="saveList()">
       <ng-container *ngIf="!(submitting$$ | async)">Save Tasks</ng-container>
       <mat-spinner *ngIf="submitting$$ | async" [diameter]="22" class="m-1"></mat-spinner>
     </button>

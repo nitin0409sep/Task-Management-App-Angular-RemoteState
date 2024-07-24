@@ -44,7 +44,7 @@ export class AddTodoListComponent implements OnInit {
       name: ['', [Validators.required]],
       priority: ['', [Validators.required]],
       deadline: ['', [Validators.required]],
-      progress: [null, [Validators.required]],
+      progress: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
       status: ['', [Validators.required]],
     })
 
@@ -79,29 +79,38 @@ export class AddTodoListComponent implements OnInit {
       }
     })
 
+    this.submitting$$.next(true);
     this.todoservice.addItems(reqbody).subscribe({
       next: (val) => {
         this.snackbarservice.showMessage(val);
-        this.close();
+        this.submitting$$.next(false);
+        this.close(1);
       },
       error: (err) => {
+        this.submitting$$.next(false);
         this.snackbarservice.showError(err.err.err);
       },
     });
   }
 
   // Close Dialog
-  public close() {
-    const dialog = this.dialog.open(ConfirmationDialogComponent, {
-      data: {
-        message: `Do you want to close add tasks dialog box ?`,
-      }
-    });
+  public close(isAdded = 0) {
+    if (!isAdded) {
+      const dialog = this.dialog.open(ConfirmationDialogComponent, {
+        data: {
+          message: `Do you want to close add tasks dialog box ?`,
+        }
+      });
 
-    dialog.afterClosed().subscribe((val) => {
-      if (val) {
-        this.dialogRef.close();
-      }
-    })
+      dialog.afterClosed().subscribe((val) => {
+        if (val) {
+          this.dialogRef.close();
+        }
+      })
+    }
+    else {
+      this.dialogRef.close();
+    }
   }
+
 }

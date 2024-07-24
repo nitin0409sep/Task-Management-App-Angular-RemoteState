@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../utils/shared.module';
+import { MaterialModule } from '../utils/material-ui/material.module';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -21,6 +22,7 @@ import { ViewTodoListItemComponent } from '../components/view-todo-list-item/vie
   ],
   imports: [
     SharedModule,
+    MaterialModule,
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
@@ -28,4 +30,4 @@ import { ViewTodoListItemComponent } from '../components/view-todo-list-item/vie
   ],
   exports: [],
 })
-export class CoreModule {}
+export class CoreModule { }

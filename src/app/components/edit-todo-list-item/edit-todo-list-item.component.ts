@@ -36,7 +36,7 @@ export class EditTodoListComponent implements OnInit {
       name: [this.data?.value, [Validators.required]],
       priority: [this.data?.priority, [Validators.required]],
       deadline: [this.data.dead_line_date, [Validators.required]],
-      progress: [this.data.progress, [Validators.required]],
+      progress: [this.data.progress, [Validators.required, Validators.min(0), Validators.max(100)]],
       status: [this.data.status, [Validators.required]],
     })
   }
@@ -56,12 +56,15 @@ export class EditTodoListComponent implements OnInit {
     delete reqbody.deadline;
     delete reqbody.name;
 
+    this.submitting$$.next(true);
     this.todoservice.updateItems(this.data.id, reqbody).subscribe({
       next: (val) => {
         this.snackbarservice.showMessage(val);
         this.close();
+        this.submitting$$.next(false);
       },
       error: (err) => {
+        this.submitting$$.next(false);
         this.snackbarservice.showError(err.err.err);
       },
     });

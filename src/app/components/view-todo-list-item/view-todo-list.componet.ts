@@ -79,7 +79,7 @@ export class ViewTodoListItemComponent implements OnInit {
   public createForm() {
     this.searchForm = this.fb.group({
       search: new FormControl('', []),
-      filter: new FormControl('Item Value', []),
+      filter: new FormControl('Task', []),
     });
   }
 

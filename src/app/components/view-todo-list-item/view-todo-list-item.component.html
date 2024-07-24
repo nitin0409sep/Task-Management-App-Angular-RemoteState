@@ -21,11 +21,11 @@
         </button>
 
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="searchForm.get('filter')?.patchValue('Item Id')">
+          <!-- <button mat-menu-item (click)="searchForm.get('filter')?.patchValue('Item Id')">
             <span>Item Id</span>
-          </button>
-          <button mat-menu-item (click)="searchForm.get('filter')?.patchValue('Item Value')">
-            <span>Item Value</span>
+          </button> -->
+          <button mat-menu-item (click)="searchForm.get('filter')?.patchValue('Task')">
+            <span>Task</span>
           </button>
         </mat-menu>
       </div>
@@ -34,7 +34,7 @@
         <button
           class="p-2 px-10 button-add-delete inside-buttons-padding text-md text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-100 flex-1"
           style="border-radius: 10px" (click)="$event.stopPropagation(); addItems()">
-          Add Items
+          Add Tasks
         </button>
 
         <button class="p-2 text-md button-add-delete inside-buttons-padding px-10 flex-1" style="border-radius: 10px"
@@ -43,7 +43,7 @@
             ? 'text-white bg-red-500 hover:bg-red-600 active:bg-red-700 focus:outline-none focus:ring focus:ring-red-100'
             : 'bg-slate-200 text-gray-500'
         " (click)="$event.stopPropagation(); deleteAllItems()" [disabled]="this.dataSource$$.value.length === 0">
-          Delete Items
+          Delete Tasks
         </button>
       </div>
     </form>

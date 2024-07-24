@@ -56,12 +56,15 @@ export class EditTodoListComponent implements OnInit {
     delete reqbody.deadline;
     delete reqbody.name;
 
+    this.submitting$$.next(true);
     this.todoservice.updateItems(this.data.id, reqbody).subscribe({
       next: (val) => {
         this.snackbarservice.showMessage(val);
         this.close();
+        this.submitting$$.next(false);
       },
       error: (err) => {
+        this.submitting$$.next(false);
         this.snackbarservice.showError(err.err.err);
       },
     });

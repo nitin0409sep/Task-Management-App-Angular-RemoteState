@@ -1,0 +1,28 @@
+<div class="w-full">
+    <div class="m-0 px-3 py-2 bg-blue-300 flex justify-between items-center">
+        <h2 style="margin: 0px" class="text-white font-extrabold">{{add_edit_title}}</h2>
+        <mat-icon matTooltip="Close" class="cursor-pointer" (click)="close()">close</mat-icon>
+    </div>
+
+    <div class="m-2 pl-1 pr-1">
+        <form [formGroup]="commentsForm">
+            <div class="border-2 rounded-sm border-gray-300">
+                <textarea rows="4" formControlName="comment" class="w-full p-2 min-h-14 max-h-72 text-justify"
+                    placeholder="Write your comment here..." style="outline: none;"></textarea>
+            </div>
+        </form>
+    </div>
+
+    <!-- Submitting Button -->
+    <mat-dialog-actions align="center" class="gap-2 dialog-buttons">
+        <button [disabled]="!this.commentsForm.valid" [ngClass]="{ 
+      'bg-gray-400': !commentsForm.valid, 
+      ' bg-green-500 hover:bg-green-600 active:bg-green-700': commentsForm.valid 
+    }" class="p-2 px-8 text-white focus:outline-none focus:ring focus:ring-green-100" style="border-radius: 10px"
+            (click)="saveComments()">
+            <ng-container *ngIf="!(submitting$$ | async)">{{saveButton}}</ng-container>
+            <mat-spinner *ngIf="submitting$$ | async" [diameter]="22" class="m-1"></mat-spinner>
+        </button>
+    </mat-dialog-actions>
+
+</div>

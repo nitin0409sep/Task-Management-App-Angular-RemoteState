@@ -1,0 +1,25 @@
+input[type="checkbox"]:checked + div {
+  position: relative;
+}
+
+input[type="checkbox"]:checked + div::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 2px;
+  background-color: red;
+}
+
+.grid-box {
+  display: grid;
+  grid-template-columns: 30px 1fr 60px;
+  grid-template-rows: 30px;
+
+  justify-content: center;
+  align-items: center;
+
+//   background-color: aquamarine;
+}
+

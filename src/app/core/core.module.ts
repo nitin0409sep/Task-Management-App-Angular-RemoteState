@@ -12,7 +12,7 @@ import { AddTodoListComponent } from '../components/add-todo-list-item/add-todo-
 import { EditTodoListComponent } from '../components/edit-todo-list-item/edit-todo-list-item.component';
 import { ViewTodoListItemComponent } from '../components/view-todo-list-item/view-todo-list.componet';
 import { CommentComponent } from '../components/comments-todo-list-item.component/comments-todo-list-item.component';
-import { DialogCommentBox } from '../components/comments-dialog-box/comments-dialog-box.component';
+import { DialogCommentBox } from '../components/add-edit-comments-dialog-box/comments-dialog-box.component';
 
 @NgModule({
   declarations: [

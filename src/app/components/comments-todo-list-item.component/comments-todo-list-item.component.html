@@ -1,6 +1,6 @@
-<div class="h-full w-full text-gray-500 px-6">
-    <div class="flex justify-between items-center">
-        <div class="flex justify-start items-center text-gray-500 h-16 gap-5">
+<div class="h-full w-full text-gray-500 px-4 flex flex-col pb-2">
+    <div class="flex justify-between items-center w-full">
+        <div class="flex justify-start items-center text-gray-500 h-16 gap-5 flex-1">
             <button
                 class="px-2 text-black focus:outline-none shadow-sm border-2 text-center transition-all duration-75 ease-in-out hover:bg-gray-400 hover:text-white"
                 style="border-radius: 10px" (click)="$event.stopPropagation(); viewList()">
@@ -9,15 +9,52 @@
             <span class="text-2xl">{{ taskDetails?.items[0]?.value }}</span>
         </div>
 
-        <button
-            class="px-4 button-add-delete inside-buttons-padding text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-100 h-10"
-            style="border-radius: 10px" (click)="$event.stopPropagation(); openCommentDialogBox()">
-            Add Comments
-        </button>
+        <div class="flex justify-center items-center gap-5">
+            <button
+                class="px-4  text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-100 h-10"
+                style="border-radius: 10px" (click)="$event.stopPropagation(); openCommentDialogBox()">
+                Add Comments
+            </button>
+
+            <button
+                class="px-4 h-10 text-white bg-red-500 hover:bg-red-600 active:bg-red-700 focus:outline-none focus:ring focus:ring-red-100"
+                style="border-radius: 10px" (click)="$event.stopPropagation(); deleteAllComments()">
+                Delete Comments
+            </button>
+        </div>
     </div>
 
     <hr>
-    <!-- <div class="overflow-auto overflow-y-auto overflow-x-hidden" style="height: 600px;">
+    <div class="flex pt-4 justify-between items-center gap-1"
+        *ngFor="let item of (comments$$ | async); let idx = index;">
+        <div class="flex justify-start gap-2 items-center w-full">
+            <div>
+                <span class="text-md">
+                    {{ idx + 1}}.
+                </span>
+            </div>
+            <div class="flex items-center w-full text-justify pr-2 min-h-6 max-h-20 overflow-auto">
+                <span>
+                    {{item}}
+                </span>
+            </div>
+        </div>
 
-    </div> -->
+        <div class="flex flex-row">
+            <button class="hover:bg-gray-200 pl-1 pr-1 text-black" style="border-radius: 100%" matTooltip="Edit"
+                (click)="$event.stopPropagation(); openCommentDialogBox(item)">
+                <span class="material-icons text-green-500 text-xl">edit</span>
+            </button>
+
+            <div class="flex flex-row" matTooltip="delete">
+                <button (click)="$event.stopPropagation(); deleteComment(item);" class="hover:bg-gray-200 pl-1 pr-1"
+                    style="border-radius: 100%" matTooltip="Delete">
+                    <span class="material-icons text-xl text-red-500">delete
+                        <mat-spinner *ngIf="(deleting$$ | async) && deletingIndex === idx"
+                            [diameter]="22"></mat-spinner>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

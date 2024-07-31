@@ -127,11 +127,14 @@ export class ViewTodoListItemComponent implements OnInit {
         if (!element?.id) {
           console.log('Delete All Is clicked');
         } else {
+          this.deleting$$.next(true);
           this.todoservice.deleteItems(element!.id).subscribe({
             next: (res) => {
+              this.deleting$$.next(false);
               this.snackbarservice.showMessage(res);
             },
             error: (err) => {
+              this.deleting$$.next(false);
               this.snackbarservice.showError(err.err.err);
             },
           });
@@ -139,7 +142,7 @@ export class ViewTodoListItemComponent implements OnInit {
       }
     });
   }
-
+  
   // Delete All Items
   public deleteAllItems() {
     const dialog = this.dialog.open(ConfirmationDialogComponent, {
@@ -147,14 +150,17 @@ export class ViewTodoListItemComponent implements OnInit {
         message: "Do you want to delete all items ?",
       }
     });
-
+    
     dialog.afterClosed().subscribe((val) => {
       if (val) {
+        this.deleting$$.next(true);
         this.todoservice.deleteAllItems().subscribe({
           next: (res) => {
+            this.deleting$$.next(false);
             this.snackbarservice.showMessage(res);
           },
           error: (err) => {
+            this.deleting$$.next(false);
             this.snackbarservice.showError(err.err.err);
           },
         });
@@ -266,6 +272,4 @@ export class ViewTodoListItemComponent implements OnInit {
       queryParams: { id },
     })
   }
-
-
 }
